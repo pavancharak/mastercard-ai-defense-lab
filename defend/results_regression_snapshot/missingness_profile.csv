@@ -1,0 +1,7 @@
+feature,LEGIT,A1,A2,B1,B2,B3,C1,C2,C3,D1,D2,E2
+identity_cross_source_correlation,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+claimed_employment_tenure_months,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0,0.0
+historical_avg_amount,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+geo_is_new,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0
+payee_prior_interaction_count,0.277,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.76,0.0
+request_urgency_flag,0.277,0.0,0.0,1.0,1.0,0.0,0.0,0.0,0.0,0.0,0.76,0.0

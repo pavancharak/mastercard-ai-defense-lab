@@ -1,0 +1,12 @@
+vector,channels,legit_amount_min,legit_amount_max,vector_amount_min,vector_amount_max,ranges_overlap
+A1,card_not_present,1.34,742.73,63.08,974.07,True
+A2,card_not_present,1.34,742.73,22.72,709.4,True
+B1,wire,22.62,653755.29,2160.04,34250.2,True
+B2,"p2p,rtp",1.68,20230.24,432.23,4652.83,True
+B3,card_not_present,1.34,742.73,14.04,1001.92,True
+C1,agentic_checkout,2.05,143.53,57.2,3927.39,True
+C2,agentic_checkout,2.05,143.53,41.97,531.24,True
+C3,agentic_checkout,2.05,143.53,22.96,500.75,True
+D1,card_not_present,1.34,742.73,0.57,4.97,True
+D2,"ach,card_not_present,p2p",1.34,42114.43,79.19,2726.59,True
+E2,promo_redemption,1.59,395.32,1.13,24.88,True

@@ -1,0 +1,14 @@
+{
+  "n": 5490,
+  "n_actual_fraud": 175,
+  "n_predicted_fraud": 175,
+  "true_positives": 175,
+  "false_positives": 0,
+  "true_negatives": 5315,
+  "false_negatives": 0,
+  "precision": 1.0,
+  "recall": 1.0,
+  "f1": 1.0,
+  "roc_auc": 1.0,
+  "pr_auc": 0.9999999999999999
+}

@@ -1,0 +1,21 @@
+[project]
+name = "generate"
+version = "0.1.0"
+description = "Generate pillar: synthetic GenAI-era payment fraud dataset, one simulated instance per vector in identify/attack-taxonomy.md"
+requires-python = ">=3.11"
+dependencies = [
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "Faker>=24.0",
+    "pyarrow>=15.0",
+]
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

@@ -1,0 +1,695 @@
+{
+  "mandate": {
+    "mandate_id": "mnd_demo_alex_01",
+    "principal_id": "alex",
+    "agent_id": "agent_alex_assistant",
+    "category_scope": [
+      "subscription"
+    ],
+    "per_transaction_cap": 200.0,
+    "monthly_cap": 200.0,
+    "recurring_allowed": true,
+    "currency": "USD"
+  },
+  "profile": {
+    "account_age_days": 730,
+    "prior_transaction_count": 41,
+    "historical_avg_amount": 28.4,
+    "credit_history_months": 96,
+    "claimed_employment_tenure_months": 260,
+    "identity_cross_source_correlation": 0.93,
+    "device_is_new": false,
+    "geo_is_new": false,
+    "geo_country": "US",
+    "credential_exposure_window_flag": false,
+    "agent_attestation_present": true,
+    "agent_attestation_verified": true,
+    "agent_behavior_pattern_match_score": 0.94,
+    "channel": "agentic_checkout",
+    "currency": "USD",
+    "txn_hour": 14
+  },
+  "scenarios": [
+    {
+      "intent_id": "S1",
+      "intent_text": "Please renew my Netflix subscription for this month.",
+      "note": "Within mandate: correct category, well within cap. Expect: allowed.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_netflix",
+        "product_name": "Netflix Premium Subscription",
+        "merchant_id": "mrc_streamco",
+        "merchant_name": "StreamCo",
+        "category": "subscription",
+        "amount": 15.99,
+        "recurring": true,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_netflix",
+          "name": "Netflix Premium Subscription",
+          "category": "subscription",
+          "price": 15.99,
+          "currency": "USD",
+          "merchant_id": "mrc_streamco",
+          "merchant_name": "StreamCo",
+          "recurring": true,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 0.000106,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 15.99,
+          "merchant_registration_age_days": 3650,
+          "merchant_reputation_score": 0.96,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "subscription",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": true,
+        "violations": []
+      },
+      "refusal_record": null,
+      "classifier_missed_mandate_caught": false
+    },
+    {
+      "intent_id": "S2",
+      "intent_text": "Please renew my Spotify Premium subscription for this month.",
+      "note": "Within mandate: correct category, well within cap. Expect: allowed.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_spotify",
+        "product_name": "Spotify Premium Subscription",
+        "merchant_id": "mrc_streamco",
+        "merchant_name": "StreamCo",
+        "category": "subscription",
+        "amount": 11.99,
+        "recurring": true,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_spotify",
+          "name": "Spotify Premium Subscription",
+          "category": "subscription",
+          "price": 11.99,
+          "currency": "USD",
+          "merchant_id": "mrc_streamco",
+          "merchant_name": "StreamCo",
+          "recurring": true,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 0.000106,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 11.99,
+          "merchant_registration_age_days": 3650,
+          "merchant_reputation_score": 0.96,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "subscription",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": true,
+        "violations": []
+      },
+      "refusal_record": null,
+      "classifier_missed_mandate_caught": false
+    },
+    {
+      "intent_id": "S3",
+      "intent_text": "Please buy the wireless noise-cancelling headphones from TechMart -- I need them for a trip.",
+      "note": "CENTERPIECE CASE. Category-scope violation only: amount ($165.00) is comfortably under the $200 per-transaction cap, and even added to S1+S2's approved total stays under the $200 monthly cap too -- the ONLY thing wrong is the merchant category (electronics, not subscription). The agent/account profile looks completely established and legitimate otherwise. Designed to look statistically normal to a classifier trained mostly on amount/behavioral signals. Expect: mandate check refuses (category, single cause); classifier score is the open empirical question this demo actually tests.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_headphones",
+        "product_name": "Wireless Noise-Cancelling Headphones",
+        "merchant_id": "mrc_techmart",
+        "merchant_name": "TechMart",
+        "category": "electronics",
+        "amount": 165.0,
+        "recurring": false,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_headphones",
+          "name": "Wireless Noise-Cancelling Headphones",
+          "category": "electronics",
+          "price": 165.0,
+          "currency": "USD",
+          "merchant_id": "mrc_techmart",
+          "merchant_name": "TechMart",
+          "recurring": false,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 0.009038,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 165.0,
+          "merchant_registration_age_days": 2410,
+          "merchant_reputation_score": 0.91,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "electronics",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": false,
+        "violations": [
+          {
+            "field": "merchant_category",
+            "mandate_authorized": [
+              "subscription"
+            ],
+            "actually_proposed": "electronics",
+            "explanation": "mandate authorizes ['subscription']; proposed purchase is in category 'electronics'"
+          }
+        ]
+      },
+      "refusal_record": {
+        "refusal_record_id": "refusal_d7bb75488491",
+        "purchase_attempt_id": "attempt_S3_d4873cb2",
+        "decision": "REFUSED",
+        "evaluated_intent": {
+          "target": "TechMart:prod_headphones",
+          "parameters": {
+            "amount": 165.0,
+            "currency": "USD",
+            "category": "electronics",
+            "recurring": false
+          }
+        },
+        "mandate_binding_violations": [
+          {
+            "field": "merchant_category",
+            "mandate_authorized": [
+              "subscription"
+            ],
+            "actually_proposed": "electronics",
+            "explanation": "mandate authorizes ['subscription']; proposed purchase is in category 'electronics'"
+          }
+        ],
+        "submitted_by": "agent_alex_assistant",
+        "created_at": "2026-08-17T03:01:29.702236+00:00",
+        "record_hash": "aaf45b6b6d60b92ebf935aca0d498afd421201cba0bd7faa4345fedc0ab03bdb",
+        "signature": "UNSIGNED -- local demo, no signing key material"
+      },
+      "classifier_missed_mandate_caught": true
+    },
+    {
+      "intent_id": "S4",
+      "intent_text": "Please upgrade my CloudSafe storage plan to the premium annual tier.",
+      "note": "Blatant amount-cap violation ($250 > $200 per-transaction cap, and alone over the $200 monthly cap too), correct category. Included as a large, unambiguous violation for contrast against S3/S5/S6's narrower ones -- reported empirically like every other case, not assumed to be classifier-detectable just because it's large.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_cloudsafe_annual",
+        "product_name": "CloudSafe Storage Plan (Premium Annual Tier)",
+        "merchant_id": "mrc_cloudsafe",
+        "merchant_name": "CloudSafe",
+        "category": "subscription",
+        "amount": 250.0,
+        "recurring": true,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_cloudsafe_annual",
+          "name": "CloudSafe Storage Plan (Premium Annual Tier)",
+          "category": "subscription",
+          "price": 250.0,
+          "currency": "USD",
+          "merchant_id": "mrc_cloudsafe",
+          "merchant_name": "CloudSafe",
+          "recurring": true,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 0.02493,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 250.0,
+          "merchant_registration_age_days": 1820,
+          "merchant_reputation_score": 0.88,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "subscription",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": false,
+        "violations": [
+          {
+            "field": "amount",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 250.0,
+            "explanation": "mandate's per-transaction cap is 200.0 USD; proposed amount is 250.0 USD"
+          },
+          {
+            "field": "cumulative_period_spend",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 277.98,
+            "explanation": "mandate's monthly cap is 200.0 USD; approved spend so far this period is 27.98 USD, and this purchase would bring the running total to 277.98 USD"
+          }
+        ]
+      },
+      "refusal_record": {
+        "refusal_record_id": "refusal_84758d928140",
+        "purchase_attempt_id": "attempt_S4_432ac0d5",
+        "decision": "REFUSED",
+        "evaluated_intent": {
+          "target": "CloudSafe:prod_cloudsafe_annual",
+          "parameters": {
+            "amount": 250.0,
+            "currency": "USD",
+            "category": "subscription",
+            "recurring": true
+          }
+        },
+        "mandate_binding_violations": [
+          {
+            "field": "amount",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 250.0,
+            "explanation": "mandate's per-transaction cap is 200.0 USD; proposed amount is 250.0 USD"
+          },
+          {
+            "field": "cumulative_period_spend",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 277.98,
+            "explanation": "mandate's monthly cap is 200.0 USD; approved spend so far this period is 27.98 USD, and this purchase would bring the running total to 277.98 USD"
+          }
+        ],
+        "submitted_by": "agent_alex_assistant",
+        "created_at": "2026-08-17T03:01:31.542564+00:00",
+        "record_hash": "ce91be5b68f8a414fb7c9068abd13b5a59115338afcef182b68abef53f0a3b28",
+        "signature": "UNSIGNED -- local demo, no signing key material"
+      },
+      "classifier_missed_mandate_caught": true
+    },
+    {
+      "intent_id": "S5",
+      "intent_text": "Please buy a $45 grocery gift card for my mom.",
+      "note": "Category-scope violation (grocery, not subscription). Expect: mandate refuses.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_grocery_giftcard",
+        "product_name": "$45 Grocery Gift Card",
+        "merchant_id": "mrc_freshmart",
+        "merchant_name": "FreshMart",
+        "category": "grocery",
+        "amount": 45.0,
+        "recurring": false,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_grocery_giftcard",
+          "name": "$45 Grocery Gift Card",
+          "category": "grocery",
+          "price": 45.0,
+          "currency": "USD",
+          "merchant_id": "mrc_freshmart",
+          "merchant_name": "FreshMart",
+          "recurring": false,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 7.8e-05,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 45.0,
+          "merchant_registration_age_days": 4100,
+          "merchant_reputation_score": 0.94,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "grocery",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": false,
+        "violations": [
+          {
+            "field": "merchant_category",
+            "mandate_authorized": [
+              "subscription"
+            ],
+            "actually_proposed": "grocery",
+            "explanation": "mandate authorizes ['subscription']; proposed purchase is in category 'grocery'"
+          }
+        ]
+      },
+      "refusal_record": {
+        "refusal_record_id": "refusal_d4aa517445c0",
+        "purchase_attempt_id": "attempt_S5_2e0908e3",
+        "decision": "REFUSED",
+        "evaluated_intent": {
+          "target": "FreshMart:prod_grocery_giftcard",
+          "parameters": {
+            "amount": 45.0,
+            "currency": "USD",
+            "category": "grocery",
+            "recurring": false
+          }
+        },
+        "mandate_binding_violations": [
+          {
+            "field": "merchant_category",
+            "mandate_authorized": [
+              "subscription"
+            ],
+            "actually_proposed": "grocery",
+            "explanation": "mandate authorizes ['subscription']; proposed purchase is in category 'grocery'"
+          }
+        ],
+        "submitted_by": "agent_alex_assistant",
+        "created_at": "2026-08-17T03:01:33.381559+00:00",
+        "record_hash": "115490e5b5dd371ae8602d9ad53553455a12b3656e156deae44a4ae47e113329",
+        "signature": "UNSIGNED -- local demo, no signing key material"
+      },
+      "classifier_missed_mandate_caught": true
+    },
+    {
+      "intent_id": "S6",
+      "intent_text": "Please sign me up for the PixelSuite Premium monthly subscription.",
+      "note": "STRUCTURAL-INVISIBILITY CASE. Correct category, single-transaction amount ($185) is under the per-transaction cap -- but the two earlier approved purchases (S1 + S2 = $27.98) push the running monthly total to $212.98, over the $200 monthly cap. No feature in Defend's schema encodes cumulative mandate-period spend, so this violation class is structurally invisible to a row-at-a-time classifier by construction, not just empirically missed.",
+      "agent_completed": true,
+      "proposed_purchase": {
+        "product_id": "prod_pixelsuite",
+        "product_name": "PixelSuite Premium Subscription (Monthly)",
+        "merchant_id": "mrc_pixelsuite",
+        "merchant_name": "PixelSuite",
+        "category": "subscription",
+        "amount": 185.0,
+        "recurring": true,
+        "currency": "USD"
+      },
+      "check_a_merchant": {
+        "success": true,
+        "in_stock": true,
+        "detail": {
+          "product_id": "prod_pixelsuite",
+          "name": "PixelSuite Premium Subscription (Monthly)",
+          "category": "subscription",
+          "price": 185.0,
+          "currency": "USD",
+          "merchant_id": "mrc_pixelsuite",
+          "merchant_name": "PixelSuite",
+          "recurring": true,
+          "in_stock": true
+        }
+      },
+      "check_b_classifier": {
+        "fraud_probability": 0.018246,
+        "decision_threshold": 0.5,
+        "risk_label": "LOW_RISK",
+        "features_sent": {
+          "amount": 185.0,
+          "merchant_registration_age_days": 980,
+          "merchant_reputation_score": 0.83,
+          "account_age_days": 730,
+          "prior_transaction_count": 41,
+          "historical_avg_amount": 28.4,
+          "credit_history_months": 96,
+          "claimed_employment_tenure_months": 260,
+          "identity_cross_source_correlation": 0.93,
+          "session_video_artifact_score": null,
+          "onboarding_velocity_seconds": null,
+          "payee_prior_interaction_count": null,
+          "time_since_support_call_minutes": null,
+          "agent_behavior_pattern_match_score": 0.94,
+          "mandate_amount_cap": 200.0,
+          "attempts_in_window": null,
+          "window_seconds": null,
+          "txn_hour": 14,
+          "channel": "agentic_checkout",
+          "currency": "USD",
+          "merchant_category": "subscription",
+          "geo_country": "US",
+          "mandate_category_scope": "subscription",
+          "authorization_result": "approved",
+          "device_is_new": false,
+          "geo_is_new": false,
+          "session_frame_rate_anomaly": null,
+          "login_event_flag": null,
+          "account_detail_changed_before_txn": null,
+          "is_first_time_payee": null,
+          "request_urgency_flag": null,
+          "approval_outside_hierarchy": null,
+          "preceded_by_support_call": null,
+          "credential_exposure_window_flag": false,
+          "agent_attestation_present": true,
+          "agent_attestation_verified": true,
+          "mandate_recurring_flag": true
+        }
+      },
+      "check_c_mandate": {
+        "allowed": false,
+        "violations": [
+          {
+            "field": "cumulative_period_spend",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 212.98,
+            "explanation": "mandate's monthly cap is 200.0 USD; approved spend so far this period is 27.98 USD, and this purchase would bring the running total to 212.98 USD"
+          }
+        ]
+      },
+      "refusal_record": {
+        "refusal_record_id": "refusal_51fb9b000f33",
+        "purchase_attempt_id": "attempt_S6_d7cebf7a",
+        "decision": "REFUSED",
+        "evaluated_intent": {
+          "target": "PixelSuite:prod_pixelsuite",
+          "parameters": {
+            "amount": 185.0,
+            "currency": "USD",
+            "category": "subscription",
+            "recurring": true
+          }
+        },
+        "mandate_binding_violations": [
+          {
+            "field": "cumulative_period_spend",
+            "mandate_authorized": 200.0,
+            "actually_proposed": 212.98,
+            "explanation": "mandate's monthly cap is 200.0 USD; approved spend so far this period is 27.98 USD, and this purchase would bring the running total to 212.98 USD"
+          }
+        ],
+        "submitted_by": "agent_alex_assistant",
+        "created_at": "2026-08-17T03:01:35.192648+00:00",
+        "record_hash": "534ca2f8926a6a17f5bb6103176ce8e75aebf92123dadab0a6d67c25631fd902",
+        "signature": "UNSIGNED -- local demo, no signing key material"
+      },
+      "classifier_missed_mandate_caught": true
+    }
+  ],
+  "all_urls_called": [
+    "http://127.0.0.1:58423/health",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_netflix",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_spotify",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_headphones",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_cloudsafe_annual",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_grocery_giftcard",
+    "http://127.0.0.1:58423/products",
+    "http://127.0.0.1:58423/purchase",
+    "http://127.0.0.1:58423/products/prod_pixelsuite"
+  ],
+  "demonstrated_cases": [
+    "S3",
+    "S4",
+    "S5",
+    "S6"
+  ]
+}

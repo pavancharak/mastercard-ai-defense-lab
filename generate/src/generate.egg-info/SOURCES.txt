@@ -1,0 +1,15 @@
+pyproject.toml
+src/generate/__init__.py
+src/generate/cli.py
+src/generate/config.py
+src/generate/dataset.py
+src/generate/entities.py
+src/generate/schema.py
+src/generate/utils.py
+src/generate/vectors.py
+src/generate.egg-info/PKG-INFO
+src/generate.egg-info/SOURCES.txt
+src/generate.egg-info/dependency_links.txt
+src/generate.egg-info/requires.txt
+src/generate.egg-info/top_level.txt
+tests/test_dataset.py
