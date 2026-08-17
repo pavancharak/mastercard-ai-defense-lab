@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Taxonomy{% endblock %}
+{% block content %}
+<h1>Attack Taxonomy</h1>
+<p class="lede">Parsed directly from <code>identify/attack-taxonomy.md</code>.
+{% set total_vectors = categories|map(attribute="vectors")|map("length")|sum %}
+{{ categories|length }} categories, {{ total_vectors }} vectors, each with a documented mechanism,
+channel, transaction-level signal, plausibility, and severity rating.</p>
+<p class="muted">Note: the source document's own introduction says "fourteen attack vectors";
+this page counts exactly what's actually defined in the file ({{ total_vectors }}) rather than
+repeating that figure -- see the initial-commit discussion for why. <code>identify/</code> is not
+modified by this prototype.</p>
+
+{% for category in categories %}
+<section class="panel">
+  <h2>Category {{ category.category_id }}: {{ category.name }}</h2>
+  {% for vector in category.vectors %}
+  <details class="vector-details">
+    <summary><strong>{{ vector.vector_id }}.</strong> {{ vector.name }}</summary>
+    <dl>
+      <dt>Mechanism</dt><dd>{{ vector.mechanism }}</dd>
+      <dt>Channel</dt><dd>{{ vector.channel }}</dd>
+      <dt>Transaction signal</dt><dd>{{ vector.transaction_signal }}</dd>
+      <dt>Plausibility</dt><dd>{{ vector.plausibility }}</dd>
+      <dt>Severity</dt><dd>{{ vector.severity }}</dd>
+    </dl>
+  </details>
+  {% endfor %}
+</section>
+{% endfor %}
+{% endblock %}

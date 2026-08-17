@@ -17,6 +17,7 @@ from datetime import UTC, datetime
 from pathlib import Path
 
 import requests
+from dotenv import load_dotenv
 from openai import OpenAI
 
 from .agent import run_agent_purchase
@@ -26,6 +27,20 @@ from .mandate import EnvelopeVerdict, MandateLedger, ProposedPurchase, check_env
 from .refusal import build_refusal_record, refusal_record_to_dict
 from .scenarios import MANDATE, PROFILE, SCRIPTED_INTENTS
 from .server import LocalMerchantServer
+
+# Loads mastercard-ai-defense-lab/.env (the repo root, three levels above
+# this file: mandate_demo/ -> src/ -> mandate-demo/ -> repo root) into
+# the process environment before anything below reads OPENAI_API_KEY --
+# an explicit path, not reliant on the current working directory
+# matching wherever .env happens to sit. Runs at import time (module
+# level), so this also covers callers that import this module without
+# calling main() directly (e.g. web-prototype's live_agent.py). A
+# missing .env is not an error here -- load_dotenv() just no-ops. override=True
+# so this project's own .env always wins over a stray/stale environment
+# variable already present in the shell (e.g. left over from earlier manual
+# testing, or a machine-wide variable) -- the whole point of this fix is that
+# .env is the single, trustworthy source, not "whatever happened to be set."
+load_dotenv(Path(__file__).resolve().parents[3] / ".env", override=True)
 
 OUTPUT_DIR = Path(__file__).resolve().parents[2] / "output"
 

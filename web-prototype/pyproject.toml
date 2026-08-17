@@ -1,0 +1,32 @@
+[project]
+name = "web-prototype"
+version = "0.1.0"
+description = "Web prototype for the Mastercard Innovation Challenge submission -- a UI on top of identify/generate/defend/mandate-demo. Read-only consumer of all four; reimplements none of their logic."
+requires-python = ">=3.11"
+dependencies = [
+    "fastapi>=0.110",
+    "uvicorn>=0.30",
+    "jinja2>=3.1",
+    "python-multipart>=0.0.9",
+    "requests>=2.32",
+    "pandas>=2.2",
+    "numpy>=1.26",
+    "xgboost>=2.0",
+    "scikit-learn>=1.4",
+    "openai>=1.50",
+    "python-dotenv>=1.0",
+]
+
+# mandate-demo itself is NOT listed here (it's not published to any index --
+# pip would fail trying to resolve it). Install it separately as a local
+# editable dependency: pip install -e ../mandate-demo -- see README.md.
+
+[project.optional-dependencies]
+dev = ["pytest>=8.0"]
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

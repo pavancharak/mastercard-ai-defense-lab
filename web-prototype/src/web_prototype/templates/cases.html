@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block title %}Case Browser{% endblock %}
+{% block content %}
+<h1>Case Browser</h1>
+<p class="lede">Pick a real transaction from Generate's synthetic dataset, or submit your own,
+and see Defend's actual trained XGBoost classifier score it. Every score comes from a real
+<code>model.predict_proba()</code> call against <code>defend/model/xgboost_model.json</code> --
+nothing here is a lookup table.</p>
+
+<section class="panel">
+  <h2>From the dataset</h2>
+  <p class="muted">A sample of {{ sample_transactions|length }} rows: a few from every fraud
+  vector, plus legitimate rows, out of the full dataset in
+  <code>generate/data/transactions.csv</code>.</p>
+  <div class="table-scroll">
+    <table class="data-table" id="sample-table">
+      <thead>
+        <tr>
+          <th>transaction_id</th><th>vector</th><th>channel</th><th>amount</th>
+          <th>merchant_category</th><th>geo</th><th>is_fraud (label)</th><th></th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for row in sample_transactions %}
+        <tr>
+          <td><code>{{ row.transaction_id }}</code></td>
+          <td>{{ row.fraud_vector or "LEGIT" }}</td>
+          <td>{{ row.channel }}</td>
+          <td>{{ row.amount }}</td>
+          <td>{{ row.merchant_category or "--" }}</td>
+          <td>{{ row.geo_country or "--" }}</td>
+          <td>{{ row.is_fraud }}</td>
+          <td><button class="btn-small score-dataset-btn" data-txn-id="{{ row.transaction_id }}">Score</button></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  <div class="lookup-row">
+    <label for="txn-id-input">Or look up any transaction_id directly:</label>
+    <input type="text" id="txn-id-input" placeholder="txn_690fab7e58">
+    <button class="btn-small" id="lookup-score-btn">Score</button>
+  </div>
+
+  <div id="dataset-result" class="result-box hidden"></div>
+</section>
+
+<section class="panel">
+  <h2>Free-form transaction</h2>
+  <p class="muted">Submit your own values. Any field left blank is sent to the classifier as
+  genuinely missing (not a guessed default) -- the same native-missing-value handling
+  Defend's own training data relies on for fields that don't apply to every channel/vector.</p>
+  <form id="custom-form" class="score-form">
+    {% for field in free_form_fields %}
+    <div class="form-field">
+      <label for="f-{{ field.name }}">{{ field.label }}</label>
+      {% if field.type == "select" %}
+      <select id="f-{{ field.name }}" name="{{ field.name }}">
+        <option value="">(unset)</option>
+        {% for opt in field.options %}
+        <option value="{{ opt }}">{{ opt if opt else "(none / not applicable)" }}</option>
+        {% endfor %}
+      </select>
+      {% elif field.type == "bool" %}
+      <select id="f-{{ field.name }}" name="{{ field.name }}">
+        <option value="">(unset)</option>
+        <option value="true">true</option>
+        <option value="false">false</option>
+      </select>
+      {% else %}
+      <input type="text" id="f-{{ field.name }}" name="{{ field.name }}" {% if field.step %}inputmode="decimal"{% endif %}>
+      {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn">Score this transaction</button>
+  </form>
+  <div id="custom-result" class="result-box hidden"></div>
+</section>
+{% endblock %}

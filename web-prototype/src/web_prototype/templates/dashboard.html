@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% block title %}Dashboard{% endblock %}
+{% block content %}
+<h1>Defend -- Aggregate Results</h1>
+<p class="lede">Read directly from <code>defend/results/</code>: <code>metrics_aggregate.json</code>,
+<code>metrics_per_category.csv</code>, <code>metrics_per_vector.csv</code>. This is the same
+finalized, non-leaked result set documented in <code>defend/results/report.md</code>.</p>
+
+<section class="panel">
+  <h2>Aggregate</h2>
+  <div class="stat-row">
+    <div class="stat"><span class="stat-value">{{ "%.3f"|format(aggregate.precision) }}</span><span class="stat-label">Precision</span></div>
+    <div class="stat"><span class="stat-value">{{ "%.3f"|format(aggregate.recall) }}</span><span class="stat-label">Recall</span></div>
+    <div class="stat"><span class="stat-value">{{ "%.3f"|format(aggregate.f1) }}</span><span class="stat-label">F1</span></div>
+    <div class="stat"><span class="stat-value">{{ "%.3f"|format(aggregate.roc_auc) }}</span><span class="stat-label">ROC AUC</span></div>
+  </div>
+  <p class="muted">n = {{ aggregate.n }} test rows &middot; {{ aggregate.n_actual_fraud }} actual fraud
+  &middot; {{ aggregate.true_positives }} true positives &middot; {{ aggregate.false_positives }} false
+  positives &middot; {{ aggregate.false_negatives }} false negatives</p>
+</section>
+
+<section class="panel">
+  <h2>Per category</h2>
+  <table class="data-table">
+    <thead><tr><th>Category</th><th>n (test fraud)</th><th>Precision</th><th>Recall</th><th>F1</th><th>ROC AUC</th><th>PR AUC</th></tr></thead>
+    <tbody>
+      {% for row in per_category %}
+      <tr>
+        <td>{{ row.category }}</td>
+        <td>{{ row.n_test_fraud }}</td>
+        <td>{{ "%.3f"|format(row.precision|float) }}</td>
+        <td>{{ "%.3f"|format(row.recall|float) }}</td>
+        <td>{{ "%.3f"|format(row.f1|float) }}</td>
+        <td>{{ "%.3f"|format(row.roc_auc|float) }}</td>
+        <td>{{ "%.3f"|format(row.pr_auc|float) }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</section>
+
+<section class="panel">
+  <h2>Per vector (recall)</h2>
+  <table class="data-table">
+    <thead><tr><th>Vector</th><th>n test</th><th>n caught</th><th>Recall</th><th></th></tr></thead>
+    <tbody>
+      {% for row in per_vector %}
+      <tr>
+        <td>{{ row.vector }}</td>
+        <td>{{ row.n_test }}</td>
+        <td>{{ row.n_caught }}</td>
+        <td>{{ "%.3f"|format(row.recall|float) }}</td>
+        <td class="bar-cell"><div class="bar" style="width: {{ (row.recall|float * 100)|round(1) }}%"></div></td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  <p class="muted">C3 (Delegated Mandate Scope Abuse) recall here reflects Defend's own held-out
+  test split, which includes <code>transaction_within_mandate_envelope</code> as a feature. The
+  Mandate Demo page shows a separate, harder case built specifically to withhold that field --
+  see that page for why.</p>
+</section>
+{% endblock %}

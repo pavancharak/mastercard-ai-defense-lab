@@ -117,9 +117,19 @@ authorized, and what was actually proposed.
 
 ## Running it
 
-Requires `OPENAI_API_KEY` in the environment (uses `gpt-4o-mini`, tool
-calling, `temperature=0`) and Defend's model already trained at
-`../defend/model/`.
+Requires `OPENAI_API_KEY` (uses `gpt-4o-mini`, tool calling, `temperature=0`)
+and Defend's model already trained at `../defend/model/`.
+
+**No manual export step needed.** `mandate_demo/runner.py` calls
+`load_dotenv()` at module level, pointed at an explicit path
+(`../.env` relative to this project -- i.e. `mastercard-ai-defense-lab/.env`,
+the repo root), with `override=True` so this file always wins over any
+stray environment variable already present in the shell. Copy
+`../.env.example` to `../.env` and fill in a real key there; every run
+from then on picks it up automatically, regardless of what directory the
+command is run from or whether anything was manually exported first.
+Verified in a shell with `OPENAI_API_KEY` explicitly unset -- see the
+repo's own change history for that test.
 
 ```bash
 cd mandate-demo

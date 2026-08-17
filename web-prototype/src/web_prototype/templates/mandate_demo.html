@@ -1,0 +1,103 @@
+{% extends "base.html" %}
+{% block title %}Mandate Demo{% endblock %}
+{% block content %}
+<h1>C3 Structural Prevention -- Mandate Demo</h1>
+<p class="lede">Category C3 (Delegated Mandate Scope Abuse): a well-crafted mandate violation
+that can look statistically normal to a classifier. This page shows a real, captured run of
+<code>mandate-demo/</code>'s agent against a local synthetic merchant, with every proposed
+purchase run through three independent checks -- the merchant API, Defend's real trained
+classifier, and a deterministic mandate-envelope check.</p>
+
+<section class="panel honesty-panel">
+  <h2>Honest framing</h2>
+  <p>This is a local, from-scratch reimplementation of the architectural pattern used in
+  Parmana's production mandate-binding system -- <strong>not</strong> the real
+  <code>@parmana/sdk</code> package, and never connected to any live Parmana infrastructure. All
+  data (the merchant, products, mandate, agent) is synthetic. See
+  <code>mandate-demo/README.md</code> for the full detail.</p>
+</section>
+
+<section class="panel">
+  <h2>The mandate under test</h2>
+  {% set m = captured.mandate %}
+  <p><code>"up to ${{ "%.2f"|format(m.per_transaction_cap) }}/month on {{ m.category_scope|join(", ") }} services"</code>
+  &mdash; per-transaction cap ${{ "%.2f"|format(m.per_transaction_cap) }}, monthly cap
+  ${{ "%.2f"|format(m.monthly_cap) }}, recurring {{ "allowed" if m.recurring_allowed else "not allowed" }}.</p>
+</section>
+
+<section class="panel live-run-panel">
+  <h2>Trigger a live run</h2>
+  <p class="muted">Runs the real OpenAI-powered agent (mandate-demo's actual code, unmodified)
+  against the local mock merchant, live, right now. The OpenAI call happens entirely
+  server-side -- your browser never sees or sends the API key. Rate-limited server-side:
+  <span id="rate-limit-text">{{ rate_status.session_runs_remaining }} of {{ max_per_session }} runs left this session,
+  max {{ max_per_minute }}/minute globally.</span></p>
+  <button id="live-run-btn" class="btn btn-primary">Run live now</button>
+  <span id="live-run-status" class="muted"></span>
+  <div id="live-run-result"></div>
+</section>
+
+<section class="panel">
+  <h2>Captured run{% if captured %} (<code>{{ captured._source_file }}</code>){% endif %}</h2>
+  {% if not captured %}
+  <p class="error">No captured run found under <code>mandate-demo/output/</code>.</p>
+  {% else %}
+  <p class="muted">{{ captured.demonstrated_cases|length }} of {{ captured.scenarios|length }}
+  scenarios: classifier scored LOW_RISK, mandate check refused anyway.</p>
+
+  <div id="captured-scenarios">
+    {% for s in captured.scenarios %}
+    <article class="scenario-card {% if s.classifier_missed_mandate_caught %}scenario-demonstrated{% endif %}">
+      <header>
+        <span class="scenario-id">{{ s.intent_id }}</span>
+        {% if s.classifier_missed_mandate_caught %}<span class="badge badge-demonstrated">CLASSIFIER MISSED IT -- MANDATE CAUGHT IT</span>{% endif %}
+      </header>
+      <p class="intent-text">&ldquo;{{ s.intent_text }}&rdquo;</p>
+      <p class="scenario-note">{{ s.note }}</p>
+      {% if not s.agent_completed %}
+      <p class="error">Agent did not complete a purchase for this intent.</p>
+      {% else %}
+      <p class="proposed">Proposed: <strong>{{ s.proposed_purchase.product_name }}</strong>
+        ({{ s.proposed_purchase.category }}), ${{ "%.2f"|format(s.proposed_purchase.amount) }}
+        {{ s.proposed_purchase.currency }}, recurring={{ s.proposed_purchase.recurring }}</p>
+      <div class="checks-row">
+        <div class="check-box {{ 'check-pass' if s.check_a_merchant.success else 'check-fail' }}">
+          <strong>a. Merchant</strong><br>success={{ s.check_a_merchant.success }}
+        </div>
+        <div class="check-box {{ 'check-pass' if s.check_b_classifier.risk_label == 'LOW_RISK' else 'check-fail' }}">
+          <strong>b. Defend classifier</strong><br>
+          fraud_probability={{ "%.4f"|format(s.check_b_classifier.fraud_probability) }}
+          <br>{{ s.check_b_classifier.risk_label }}
+        </div>
+        <div class="check-box {{ 'check-pass' if s.check_c_mandate.allowed else 'check-fail' }}">
+          <strong>c. Mandate envelope</strong><br>
+          allowed={{ s.check_c_mandate.allowed }}
+        </div>
+      </div>
+      {% if s.refusal_record %}
+      <details class="refusal-record">
+        <summary>Refusal record <code>{{ s.refusal_record.refusal_record_id }}</code></summary>
+        <ul>
+          {% for v in s.refusal_record.mandate_binding_violations %}
+          <li><strong>{{ v.field }}</strong>: mandate authorized <code>{{ v.mandate_authorized }}</code>,
+          actually proposed <code>{{ v.actually_proposed }}</code> -- {{ v.explanation }}</li>
+          {% endfor %}
+        </ul>
+        <p class="muted">record_hash: <code>{{ s.refusal_record.record_hash[:24] }}&hellip;</code>
+        &middot; signature: <code>{{ s.refusal_record.signature }}</code></p>
+      </details>
+      {% endif %}
+      {% endif %}
+    </article>
+    {% endfor %}
+  </div>
+
+  <details class="panel-sub">
+    <summary>Verified: every HTTP call this run made (127.0.0.1 only)</summary>
+    <ul class="url-list">
+      {% for url in captured.all_urls_called %}<li><code>{{ url }}</code></li>{% endfor %}
+    </ul>
+  </details>
+  {% endif %}
+</section>
+{% endblock %}

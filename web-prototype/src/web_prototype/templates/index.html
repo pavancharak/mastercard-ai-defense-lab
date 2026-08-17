@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Overview{% endblock %}
+{% block content %}
+<section class="hero">
+  <h1>AI Defense Lab</h1>
+  <p class="subtitle">Mastercard Innovation Challenge -- a closed-loop system for GenAI-era payment fraud:
+  identify the attack surface, generate labeled synthetic data for it, train a classifier against it,
+  and add structural prevention where a classifier alone isn't enough.</p>
+</section>
+
+<section class="card-grid">
+  <a class="card" href="/taxonomy">
+    <h2>1. Identify</h2>
+    <p>Twelve GenAI-era payment fraud attack vectors across five categories, each grounded in a
+    documented real-world mechanism.</p>
+    <span class="card-cta">Browse the taxonomy &rarr;</span>
+  </a>
+  <a class="card" href="/dashboard">
+    <h2>2 &amp; 3. Generate + Defend</h2>
+    <p>A synthetic labeled dataset and an XGBoost fraud classifier trained on it, with honest
+    (non-leaked) per-category and per-vector metrics.</p>
+    <span class="card-cta">See the results &rarr;</span>
+  </a>
+  <a class="card" href="/cases">
+    <h2>Case Browser</h2>
+    <p>Pick a real transaction from Generate's dataset, or submit your own, and see Defend's real
+    trained classifier score it live.</p>
+    <span class="card-cta">Score a transaction &rarr;</span>
+  </a>
+  <a class="card card-highlight" href="/mandate-demo">
+    <h2>4. Mandate Demo -- the centerpiece</h2>
+    <p>The one case in this submission where the classifier alone genuinely isn't enough: a
+    well-crafted mandate-scope violation that scores low-risk to Defend's classifier, and is
+    still correctly refused by an independent, deterministic mandate-envelope check.</p>
+    <span class="card-cta">See the real captured run &rarr;</span>
+  </a>
+</section>
+{% endblock %}
