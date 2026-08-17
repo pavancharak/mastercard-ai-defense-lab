@@ -1,0 +1,13 @@
+# Dockerfile uses explicit COPY paths for exactly what's needed, so this
+# mainly matters for build-context upload speed and (critically) for
+# never letting a local .env reach the image -- see Dockerfile's own
+# note on why that matters for OPENAI_API_KEY.
+**/.venv/
+**/__pycache__/
+**/*.pyc
+**/*.egg-info/
+**/.pytest_cache/
+.env
+.env.*
+!.env.example
+.git/
