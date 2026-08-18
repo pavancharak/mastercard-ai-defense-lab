@@ -329,6 +329,44 @@ Deliberate scope cuts, stated plainly rather than left implicit:
   file already on disk; judges are trusted viewers of a local or deployed demo, not a
   multi tenant service.
 
+## Configuration
+
+Environment variables this repository reads, and what each one is for. No actual key values
+appear anywhere in this document; see `.env.example` at the repository root for the local setup
+template.
+
+**Required for local development**
+
+* `OPENAI_API_KEY` — used by `mandate-demo/src/mandate_demo/runner.py` (the live purchasing
+  agent) and `web-prototype/src/web_prototype/live_agent.py` (the **Run live now** button on
+  `/mandate-demo`). Only required for that one feature: if it is unset, the app falls back to a
+  pre-captured transcript for that demo. Every other feature (dashboard, taxonomy, cases, dataset
+  scoring) works without it.
+
+  Copy `.env.example` to `.env` and fill in a real key there; both this pillar and the web
+  prototype load it automatically at startup, no manual export step required.
+
+**In production (fly.dev)**
+
+`OPENAI_API_KEY` is not read from `.env` in the deployed image at all. `.dockerignore`
+deliberately excludes `.env` from the build context, so the key is set directly through Fly's own
+secrets manager instead:
+
+```bash
+fly secrets set OPENAI_API_KEY=<value> -a mastercard-ai-defense-lab
+```
+
+**Optional tuning variables**
+
+Not secrets, and safe to leave unset: each one falls back to the default shown below if it is not
+present in the environment.
+
+* `MANDATE_DEMO_LIVE_RUN_TIMEOUT_SECONDS` (default: 90) — how long the live agent run on
+  `/mandate-demo` is allowed to take before the web prototype times it out.
+* `MANDATE_DEMO_MAX_RUNS_PER_SESSION` (default: 5) — live run cap per browser session.
+* `MANDATE_DEMO_MAX_RUNS_PER_MINUTE` (default: 3) — live run cap across all sessions, globally,
+  per minute.
+
 ## How to run everything locally
 
 Requires Python three point eleven or newer. Commands below are written for Windows
