@@ -33,6 +33,11 @@ classifier, and a deterministic mandate-envelope check.</p>
   <span id="rate-limit-text">{{ rate_status.session_runs_remaining }} of {{ max_per_session }} runs left this session,
   max {{ max_per_minute }}/minute globally.</span></p>
   <button id="live-run-btn" class="btn btn-primary">Run live now</button>
+  <p class="muted">Clicking this button runs a real purchasing agent live, attempting a scripted
+  sequence of purchases under a fixed monthly spending mandate. Each attempt is scored by
+  Defend's trained model and checked separately against what the mandate actually allows. If the
+  live run fails for any reason, such as an API issue, the page falls back to a pre-captured
+  transcript instead, and says so plainly rather than presenting it as a fresh live result.</p>
   <span id="live-run-status" class="muted"></span>
   <div id="live-run-result"></div>
 </section>
