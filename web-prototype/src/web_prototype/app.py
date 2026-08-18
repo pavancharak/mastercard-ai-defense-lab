@@ -72,6 +72,11 @@ def index(request: Request):
     return templates.TemplateResponse(request, "index.html", {})
 
 
+@app.get("/about-parmana", response_class=HTMLResponse)
+def about_parmana(request: Request):
+    return templates.TemplateResponse(request, "about_parmana.html", {})
+
+
 @app.get("/cases", response_class=HTMLResponse)
 def cases(request: Request):
     sample = data_sources.sample_transactions(limit_per_vector=3)

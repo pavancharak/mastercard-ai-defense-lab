@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}About Parmana{% endblock %}
+{% block content %}
+<section class="fig-section" id="how-this-applies">
+  <h2>How this applies to Parmana</h2>
+  <div class="fig-copy">
+    <p>We've spent the last three years building this properly, working with design partners and
+    running security testing, because getting authorization infrastructure right matters more
+    than getting it out fast. Parmana checks whether an action is actually authorized, before it
+    happens, instead of only scoring it after the fact.</p>
+    <p>The mandate check in this demo works on that same principle. It was built specifically for
+    the Mastercard Innovation Challenge, as a standalone system separate from Parmana's own
+    product, to show the same idea working end to end: an action can look completely normal on
+    its own, and still be unauthorized once you check it against what was actually approved.</p>
+    <p>Parmana is built on this same principle. It's not commercialized yet, we're currently
+    working with design partners and running security testing before wider release.</p>
+  </div>
+  <a class="btn" href="https://parmanasystems.com" target="_blank" rel="noreferrer">Visit Parmana</a>
+</section>
+
+<section class="fig-section" id="about-parmana">
+  <h2>About Parmana</h2>
+  <div class="fig-copy">
+    <p><a href="https://parmanasystems.com" target="_blank" rel="noreferrer">Parmana</a> is
+    infrastructure that protects institutional authority. As AI agents, applications, and
+    automated systems increasingly initiate real-world actions inside businesses, from payments
+    to records to access, the question every institution now faces is the same: can something act
+    without permission it was never given?</p>
+    <p>Parmana answers that question structurally. Every proposed action is checked against what
+    an institution has explicitly authorized, before it executes. Nothing acting on a business's
+    behalf, whether a person, software, an AI agent, or an attacker, holds the credentials to act
+    on its own. An action either matches what was authorized and proceeds, or it doesn't and is
+    refused, with a verifiable record either way.</p>
+    <p>The company is not commercialized yet. Parmana is currently working with design partners
+    and undergoing security testing ahead of wider release.</p>
+  </div>
+</section>
+{% endblock %}

@@ -98,6 +98,7 @@ a:hover { text-decoration: underline; }
 .fig-title { font-family: var(--font-mono); font-size: 0.75rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text); opacity: 0.6; white-space: nowrap; }
 .fig-heading { font-size: 1.2rem; margin-bottom: 0.5rem; }
 .fig-copy { max-width: 62ch; color: var(--text); font-size: 1.02rem; line-height: 1.65; }
+.fig-copy p + p { margin-top: 1rem; }
 .fig-link { display: inline-block; margin-top: 14px; font-family: var(--font-mono); font-size: 0.85rem; text-decoration: underline; text-underline-offset: 3px; color: var(--text); }
 .fig-link:hover { color: var(--accent); }
 
