@@ -115,8 +115,8 @@ a:hover { text-decoration: underline; }
 .honesty-panel { border-color: var(--accent); background: var(--panel); }
 .live-run-panel { border-color: var(--accent); }
 
-.table-scroll { overflow-x: auto; }
-.data-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+.data-table { width: 100%; min-width: 640px; border-collapse: collapse; font-size: 0.9rem; }
 .data-table th, .data-table td { padding: 8px 10px; border-bottom: 1px solid var(--panel-border); text-align: left; white-space: nowrap; }
 .data-table th { color: var(--muted); font-weight: 600; }
 .bar-cell { width: 160px; }
