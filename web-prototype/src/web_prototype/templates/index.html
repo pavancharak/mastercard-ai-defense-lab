@@ -3,36 +3,39 @@
 {% block content %}
 <section class="hero">
   <h1>AI Defense Lab</h1>
-  <p class="subtitle">Mastercard Innovation Challenge -- a closed-loop system for GenAI-era payment fraud:
-  identify the attack surface, generate labeled synthetic data for it, train a classifier against it,
-  and add structural prevention where a classifier alone isn't enough.</p>
+  <p class="subtitle">Mastercard Innovation Challenge submission: a closed loop for AI-era payment
+  fraud. Find new ways it could happen, simulate it realistically, defend against it with a trained
+  model, and catch what that model alone would miss.</p>
 </section>
 
-<section class="card-grid">
-  <a class="card" href="/taxonomy">
-    <h2>1. Identify</h2>
-    <p>Twelve GenAI-era payment fraud attack vectors across five categories, each grounded in a
-    documented real-world mechanism.</p>
-    <span class="card-cta">Browse the taxonomy &rarr;</span>
-  </a>
-  <a class="card" href="/dashboard">
-    <h2>2 &amp; 3. Generate + Defend</h2>
-    <p>A synthetic labeled dataset and an XGBoost fraud classifier trained on it, with honest
-    (non-leaked) per-category and per-vector metrics.</p>
-    <span class="card-cta">See the results &rarr;</span>
-  </a>
-  <a class="card" href="/cases">
-    <h2>Case Browser</h2>
-    <p>Pick a real transaction from Generate's dataset, or submit your own, and see Defend's real
-    trained classifier score it live.</p>
-    <span class="card-cta">Score a transaction &rarr;</span>
-  </a>
-  <a class="card card-highlight" href="/mandate-demo">
-    <h2>4. Mandate Demo -- the centerpiece</h2>
-    <p>The one case in this submission where the classifier alone genuinely isn't enough: a
-    well-crafted mandate-scope violation that scores low-risk to Defend's classifier, and is
-    still correctly refused by an independent, deterministic mandate-envelope check.</p>
-    <span class="card-cta">See the real captured run &rarr;</span>
-  </a>
+<section class="fig-section" id="step-identify">
+  <div class="fig-label"><span class="fig-num">FIG. 01</span><span class="fig-rule"></span><span class="fig-title">Identify</span></div>
+  <p class="fig-copy">Twelve real ways AI could be used to commit payment fraud, mapped and written
+  up across five categories, each grounded in how the attack actually works.</p>
+  <a class="fig-link" href="/taxonomy">Browse the taxonomy &rarr;</a>
+</section>
+
+<section class="fig-section" id="step-generate-defend">
+  <div class="fig-label"><span class="fig-num">FIG. 02</span><span class="fig-rule"></span><span class="fig-title">Generate and Defend</span></div>
+  <p class="fig-copy">A realistic set of labeled fake transactions was built to simulate those
+  attacks, then used to train a model that learns to tell fraud from legitimate activity. The
+  results are checked and reported honestly, including where the model still struggles.</p>
+  <a class="fig-link" href="/dashboard">See the results &rarr;</a>
+</section>
+
+<section class="fig-section" id="step-case-browser">
+  <div class="fig-label"><span class="fig-num">FIG. 03</span><span class="fig-rule"></span><span class="fig-title">Case Browser</span></div>
+  <p class="fig-copy">Pick a real transaction from the dataset, or enter your own, and watch the
+  trained model score it live, right on this page.</p>
+  <a class="fig-link" href="/cases">Score a transaction &rarr;</a>
+</section>
+
+<section class="fig-section fig-section-highlight" id="step-mandate-demo">
+  <div class="fig-label"><span class="fig-num">FIG. 04</span><span class="fig-rule"></span><span class="fig-title">Mandate Demo, the centerpiece</span></div>
+  <p class="fig-copy">The one case where scoring a transaction after the fact isn't enough. A
+  purchasing agent's request can look completely normal on its own, and only becomes fraud when
+  compared against what it was actually allowed to do. This page shows a real run where the model
+  alone would have missed it, and a separate, independent check caught it anyway.</p>
+  <a class="fig-link" href="/mandate-demo">See the real captured run &rarr;</a>
 </section>
 {% endblock %}
