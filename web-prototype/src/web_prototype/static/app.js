@@ -1,5 +1,5 @@
 // Vanilla JS only. Every network call here goes to this same server's own
-// /api/* endpoints -- never to OpenAI or any other external host. The
+// /api/* endpoints, never to OpenAI or any other external host. The
 // server-side code (live_agent.py) is what actually calls OpenAI, using an
 // API key read from the server process's own environment; that key is never
 // sent to, or present in, any file this script loads or any response this
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const demonstrated = s.classifier_missed_mandate_caught;
     let html = `<article class="scenario-card ${demonstrated ? "scenario-demonstrated" : ""}">`;
     html += `<header><span class="scenario-id">${labelPrefix}${s.intent_id}</span>`;
-    if (demonstrated) html += `<span class="badge badge-demonstrated">CLASSIFIER MISSED IT -- MANDATE CAUGHT IT</span>`;
+    if (demonstrated) html += `<span class="badge badge-demonstrated">CLASSIFIER MISSED IT, MANDATE CAUGHT IT</span>`;
     html += `</header>`;
     html += `<p class="intent-text">"${s.intent_text}"</p>`;
     html += `<p class="proposed">Proposed: <strong>${p.product_name}</strong> (${p.category}), $${p.amount.toFixed(2)} ${p.currency}, recurring=${p.recurring}</p>`;
@@ -106,7 +106,7 @@ document.addEventListener("DOMContentLoaded", () => {
     if (s.refusal_record) {
       html += `<details class="refusal-record"><summary>Refusal record <code>${s.refusal_record.refusal_record_id}</code></summary><ul>`;
       for (const v of s.refusal_record.mandate_binding_violations) {
-        html += `<li><strong>${v.field}</strong>: mandate authorized <code>${JSON.stringify(v.mandate_authorized)}</code>, actually proposed <code>${JSON.stringify(v.actually_proposed)}</code> -- ${v.explanation}</li>`;
+        html += `<li><strong>${v.field}</strong>: mandate authorized <code>${JSON.stringify(v.mandate_authorized)}</code>, actually proposed <code>${JSON.stringify(v.actually_proposed)}</code>: ${v.explanation}</li>`;
       }
       html += `</ul></details>`;
     }
@@ -134,7 +134,7 @@ document.addEventListener("DOMContentLoaded", () => {
     html += `<h3>${reasonLabel}</h3>`;
     html += `<p>${payload.reason || ""}</p>`;
     if (payload.fallback) {
-      html += `<p class="muted">Falling back to the pre-captured transcript already shown below (<code>${payload.fallback._source_file}</code>) -- unaffected.</p>`;
+      html += `<p class="muted">Falling back to the pre-captured transcript already shown below (<code>${payload.fallback._source_file}</code>), unaffected.</p>`;
     }
     html += `</div>`;
     liveRunResult.innerHTML = html;
