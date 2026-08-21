@@ -3,35 +3,46 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}AI Defense Lab{% endblock %}: Mastercard Innovation Challenge</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <title>{% block title %}Payment Fraud Defense Lab{% endblock %}: Mastercard Innovation Challenge</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
   <link
     rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
   />
+
   <link rel="stylesheet" href="/static/style.css">
 </head>
+
 <body>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="/">AI Defense Lab</a>
+      <a class="brand" href="/">Payment Fraud Defense Lab</a>
+
       <nav>
-        <a href="/cases">Case Browser</a>
-        <a href="/mandate-demo" class="nav-highlight">Mandate Demo</a>
-        <a href="/dashboard">Dashboard</a>
-        <a href="/taxonomy">Taxonomy</a>
+        <a href="/cases">Test a Transaction</a>
+        <a href="/mandate-demo" class="nav-highlight">Spending Rules</a>
+        <a href="/dashboard">Results</a>
+        <a href="/taxonomy">Fraud Scenarios</a>
       </nav>
     </div>
   </header>
+
   <main class="content">
     {% block content %}{% endblock %}
   </main>
+
   <footer class="footer">
-    <p>Prototype UI only. All numbers shown are read live from files already committed under
-    <code>identify/</code>, <code>generate/</code>, <code>defend/</code>, and <code>mandate-demo/</code> --
-    nothing here is hardcoded or reimplemented. See each pillar's own README for full detail.</p>
+    <p>
+      Working prototype for the Mastercard Innovation Challenge 2026.
+      The results shown here come directly from the project's
+      <code>identify/</code>, <code>generate/</code>, <code>defend/</code>,
+      and <code>mandate-demo/</code> files.
+    </p>
   </footer>
+
   <script src="/static/app.js"></script>
 </body>
 </html>

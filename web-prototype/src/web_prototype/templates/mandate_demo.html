@@ -1,108 +1,257 @@
 {% extends "base.html" %}
-{% block title %}Mandate Demo{% endblock %}
+{% block title %}Spending Rules Demo{% endblock %}
 {% block content %}
-<h1>C3 Structural Prevention: Mandate Demo</h1>
-<p class="lede">Category C3 (Delegated Mandate Scope Abuse): a well-crafted mandate violation
-that can look statistically normal to a classifier. This page shows a real, captured run of
-<code>mandate-demo/</code>'s agent against a local synthetic merchant, with every proposed
-purchase run through three independent checks: the merchant API, Defend's real trained
-classifier, and a deterministic mandate-envelope check.</p>
+
+<h1>Can this payment actually be allowed?</h1>
+
+<p class="lede">
+  A payment can look normal to a fraud detector and still break the spending
+  rules set by the customer. This demonstration shows the difference.
+</p>
 
 <section class="panel honesty-panel">
-  <h2>Honest framing</h2>
-  <p>This is a local, from-scratch reimplementation of the architectural pattern used in
-  Parmana's production mandate-binding system, <strong>not</strong> the real
-  <code>@parmana/sdk</code> package, and never connected to any live Parmana infrastructure. All
-  data (the merchant, products, mandate, agent) is synthetic. See
-  <code>mandate-demo/README.md</code> for the full detail.</p>
+  <h2>About this demonstration</h2>
+  <p>
+    Everything here is simulated. The merchant, products, customer,
+    purchasing agent and spending rules are not real. The demonstration
+    does not connect to a live payment network or customer account.
+  </p>
 </section>
 
 <section class="panel">
-  <h2>The mandate under test</h2>
+  <h2>The spending rule</h2>
+
   {% set m = captured.mandate %}
-  <p><code>"up to ${{ "%.2f"|format(m.per_transaction_cap) }}/month on {{ m.category_scope|join(", ") }} services"</code>
-  : per-transaction cap ${{ "%.2f"|format(m.per_transaction_cap) }}, monthly cap
-  ${{ "%.2f"|format(m.monthly_cap) }}, recurring {{ "allowed" if m.recurring_allowed else "not allowed" }}.</p>
+
+  <p>
+    The purchasing agent is allowed to spend up to
+    <strong>${{ "%.2f"|format(m.per_transaction_cap) }}</strong>
+    per purchase and
+    <strong>${{ "%.2f"|format(m.monthly_cap) }}</strong>
+    per month on
+    <strong>{{ m.category_scope|join(", ") }}</strong>.
+  </p>
+
+  <p class="muted">
+    Recurring purchases:
+    {{ "allowed" if m.recurring_allowed else "not allowed" }}.
+  </p>
 </section>
 
 <section class="panel live-run-panel">
-  <h2>Trigger a live run</h2>
-  <p class="muted">Runs the real OpenAI-powered agent (mandate-demo's actual code, unmodified)
-  against the local mock merchant, live, right now. The OpenAI call happens entirely
-  server-side. Your browser never sees or sends the API key. Rate-limited server-side:
-  <span id="rate-limit-text">{{ rate_status.session_runs_remaining }} of {{ max_per_session }} runs left this session,
-  max {{ max_per_minute }}/minute globally.</span></p>
-  <button id="live-run-btn" class="btn btn-primary">Run live now</button>
-  <p class="muted">Clicking this button runs a real purchasing agent live, attempting a scripted
-  sequence of purchases under a fixed monthly spending mandate. Each attempt is scored by
-  Defend's trained model and checked separately against what the mandate actually allows. If the
-  live run fails for any reason, such as an API issue, the page falls back to a pre-captured
-  transcript instead, and says so plainly rather than presenting it as a fresh live result.</p>
+  <h2>Run the demonstration</h2>
+
+  <p class="muted">
+    This runs the project's purchasing agent against a simulated merchant.
+    Each proposed purchase is checked independently:
+  </p>
+
+  <ol>
+    <li>Can the merchant accept the purchase?</li>
+    <li>Does the fraud detector think it looks suspicious?</li>
+    <li>Does the purchase follow the customer's spending rules?</li>
+  </ol>
+
+  <p class="muted">
+    The third check does not guess. It compares the purchase with the
+    spending rules directly.
+  </p>
+
+  <button id="live-run-btn" class="btn btn-primary">
+    Run demonstration
+  </button>
+
+  <p class="muted">
+    {{ rate_status.session_runs_remaining }} of
+    {{ max_per_session }} runs left this session.
+  </p>
+
   <span id="live-run-status" class="muted"></span>
   <div id="live-run-result"></div>
 </section>
 
 <section class="panel">
-  <h2>Captured run{% if captured %} (<code>{{ captured._source_file }}</code>){% endif %}</h2>
+
+  <h2>What happened</h2>
+
   {% if not captured %}
-  <p class="error">No captured run found under <code>mandate-demo/output/</code>.</p>
+
+  <p class="error">
+    No demonstration result is currently available.
+  </p>
+
   {% else %}
-  <p class="muted">{{ captured.demonstrated_cases|length }} of {{ captured.scenarios|length }}
-  scenarios: classifier scored LOW_RISK, mandate check refused anyway.</p>
+
+  <p class="muted">
+    {{ captured.demonstrated_cases|length }} purchases looked safe to the
+    fraud detector but were refused by the spending-rule check.
+  </p>
 
   <div id="captured-scenarios">
+
     {% for s in captured.scenarios %}
-    <article class="scenario-card {% if s.classifier_missed_mandate_caught %}scenario-demonstrated{% endif %}">
+
+    <article class="scenario-card
+      {% if s.classifier_missed_mandate_caught %}
+        scenario-demonstrated
+      {% endif %}
+    ">
+
       <header>
-        <span class="scenario-id">{{ s.intent_id }}</span>
-        {% if s.classifier_missed_mandate_caught %}<span class="badge badge-demonstrated">CLASSIFIER MISSED IT, MANDATE CAUGHT IT</span>{% endif %}
+
+        <span class="scenario-id">
+          {{ s.intent_id }}
+        </span>
+
+        {% if s.classifier_missed_mandate_caught %}
+
+        <span class="badge badge-demonstrated">
+          FRAUD DETECTOR MISSED IT · RULE CHECK STOPPED IT
+        </span>
+
+        {% endif %}
+
       </header>
-      <p class="intent-text">&ldquo;{{ s.intent_text }}&rdquo;</p>
-      <p class="scenario-note">{{ s.note }}</p>
+
+      <p class="intent-text">
+        &ldquo;{{ s.intent_text }}&rdquo;
+      </p>
+
+      <p class="scenario-note">
+        {{ s.note }}
+      </p>
+
       {% if not s.agent_completed %}
-      <p class="error">Agent did not complete a purchase for this intent.</p>
+
+      <p class="error">
+        The purchasing agent did not complete this purchase.
+      </p>
+
       {% else %}
-      <p class="proposed">Proposed: <strong>{{ s.proposed_purchase.product_name }}</strong>
-        ({{ s.proposed_purchase.category }}), ${{ "%.2f"|format(s.proposed_purchase.amount) }}
-        {{ s.proposed_purchase.currency }}, recurring={{ s.proposed_purchase.recurring }}</p>
+
+      <p class="proposed">
+        Proposed purchase:
+        <strong>{{ s.proposed_purchase.product_name }}</strong>
+        —
+        {{ s.proposed_purchase.category }},
+        ${{ "%.2f"|format(s.proposed_purchase.amount) }}
+        {{ s.proposed_purchase.currency }}
+      </p>
+
       <div class="checks-row">
-        <div class="check-box {{ 'check-pass' if s.check_a_merchant.success else 'check-fail' }}">
-          <strong>a. Merchant</strong><br>success={{ s.check_a_merchant.success }}
+
+        <div class="check-box
+          {{ 'check-pass' if s.check_a_merchant.success else 'check-fail' }}">
+
+          <strong>1. Merchant</strong>
+
+          <br>
+
+          {{ "Accepted" if s.check_a_merchant.success else "Rejected" }}
+
         </div>
-        <div class="check-box {{ 'check-pass' if s.check_b_classifier.risk_label == 'LOW_RISK' else 'check-fail' }}">
-          <strong>b. Defend classifier</strong><br>
-          fraud_probability={{ "%.4f"|format(s.check_b_classifier.fraud_probability) }}
-          <br>{{ s.check_b_classifier.risk_label }}
+
+        <div class="check-box
+          {{ 'check-pass' if s.check_b_classifier.risk_label == 'LOW_RISK'
+             else 'check-fail' }}">
+
+          <strong>2. Fraud detector</strong>
+
+          <br>
+
+          {{ s.check_b_classifier.risk_label }}
+
+          <br>
+
+          <span class="muted">
+            Fraud likelihood:
+            {{ "%.2f"|format(s.check_b_classifier.fraud_probability * 100) }}%
+          </span>
+
         </div>
-        <div class="check-box {{ 'check-pass' if s.check_c_mandate.allowed else 'check-fail' }}">
-          <strong>c. Mandate envelope</strong><br>
-          allowed={{ s.check_c_mandate.allowed }}
+
+        <div class="check-box
+          {{ 'check-pass' if s.check_c_mandate.allowed else 'check-fail' }}">
+
+          <strong>3. Spending rules</strong>
+
+          <br>
+
+          {% if s.check_c_mandate.allowed %}
+            Allowed
+          {% else %}
+            Refused
+          {% endif %}
+
         </div>
+
       </div>
+
       {% if s.refusal_record %}
+
       <details class="refusal-record">
-        <summary>Refusal record <code>{{ s.refusal_record.refusal_record_id }}</code></summary>
+
+        <summary>
+          Why was this purchase refused?
+        </summary>
+
         <ul>
+
           {% for v in s.refusal_record.mandate_binding_violations %}
-          <li><strong>{{ v.field }}</strong>: mandate authorized <code>{{ v.mandate_authorized }}</code>,
-          actually proposed <code>{{ v.actually_proposed }}</code>: {{ v.explanation }}</li>
+
+          <li>
+            <strong>{{ v.field }}</strong>:
+            {{ v.explanation }}
+          </li>
+
           {% endfor %}
+
         </ul>
-        <p class="muted">record_hash: <code>{{ s.refusal_record.record_hash[:24] }}&hellip;</code>
-        &middot; signature: <code>{{ s.refusal_record.signature }}</code></p>
+
       </details>
+
       {% endif %}
+
       {% endif %}
+
     </article>
+
     {% endfor %}
+
   </div>
 
-  <details class="panel-sub">
-    <summary>Verified: every HTTP call this run made (127.0.0.1 only)</summary>
-    <ul class="url-list">
-      {% for url in captured.all_urls_called %}<li><code>{{ url }}</code></li>{% endfor %}
-    </ul>
-  </details>
   {% endif %}
+
 </section>
+
+<section class="panel">
+
+  <h2>The point</h2>
+
+  <p>
+    A fraud detector asks:
+  </p>
+
+  <p class="lede">
+    <strong>“Does this payment look suspicious?”</strong>
+  </p>
+
+  <p>
+    The spending-rule check asks:
+  </p>
+
+  <p class="lede">
+    <strong>“Was this payment actually allowed?”</strong>
+  </p>
+
+  <p>
+    These are different questions.
+  </p>
+
+  <p>
+    This demonstration shows why a payment system may need both.
+  </p>
+
+</section>
+
 {% endblock %}
