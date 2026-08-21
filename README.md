@@ -555,24 +555,3 @@ Stop what is not authorized.**
 
 ```
 
-### One important correction
-
-I would **not** keep the old README's opening sentence:
-
-> “a taxonomy of the actual attack vectors…”
-
-It is too technical for the first impression.
-
-The new opening should immediately tell the judge:
-
-**“AI-era payment fraud: find it, create it, detect it, and stop it.”**
-
-That is much easier to understand and maps directly to the challenge's **identify, generate, defend** requirements.
-
-Also, the live GitHub repo currently exposes the old README and confirms the same five-module architecture, so this revision is aligned with the code structure rather than inventing a new architecture. :contentReference[oaicite:2]{index=2}
-
-:contentReference[oaicite:3]{index=3}  
-:contentReference[oaicite:4]{index=4}
-```
-
-[1]: https://github.com/pavancharak/mastercard-ai-defense-lab "GitHub - pavancharak/mastercard-ai-defense-lab: AI-era payment fraud defense: detect GenAI-driven fraud and enforce deterministic authorization before execution. · GitHub"
