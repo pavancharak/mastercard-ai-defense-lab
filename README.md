@@ -553,5 +553,4 @@ A strong payment defense needs both.
 Verify what is allowed.
 Stop what is not authorized.**
 
-```
 
