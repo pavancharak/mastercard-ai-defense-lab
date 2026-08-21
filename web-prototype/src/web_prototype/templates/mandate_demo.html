@@ -11,10 +11,12 @@
 
 <section class="panel honesty-panel">
   <h2>About this demonstration</h2>
+
   <p>
     Everything here is simulated. The merchant, products, customer,
-    purchasing agent and spending rules are not real. The demonstration
-    does not connect to a live payment network or customer account.
+    purchasing agent and spending rules are not real.
+    This demonstration does not connect to a live payment network
+    or customer account.
   </p>
 </section>
 
@@ -41,20 +43,20 @@
 <section class="panel live-run-panel">
   <h2>Run the demonstration</h2>
 
-  <p class="muted">
-    This runs the project's purchasing agent against a simulated merchant.
-    Each proposed purchase is checked independently:
+  <p>
+    This runs the purchasing agent against a simulated merchant.
+    Every proposed purchase is checked in three different ways:
   </p>
 
   <ol>
     <li>Can the merchant accept the purchase?</li>
-    <li>Does the fraud detector think it looks suspicious?</li>
-    <li>Does the purchase follow the customer's spending rules?</li>
+    <li>Does the fraud detector think the payment looks suspicious?</li>
+    <li>Does the payment follow the customer's spending rules?</li>
   </ol>
 
   <p class="muted">
-    The third check does not guess. It compares the purchase with the
-    spending rules directly.
+    The third check does not guess. It compares the payment directly
+    with the spending rules.
   </p>
 
   <button id="live-run-btn" class="btn btn-primary">
@@ -71,7 +73,6 @@
 </section>
 
 <section class="panel">
-
   <h2>What happened</h2>
 
   {% if not captured %}
@@ -98,7 +99,6 @@
     ">
 
       <header>
-
         <span class="scenario-id">
           {{ s.intent_id }}
         </span>
@@ -110,7 +110,6 @@
         </span>
 
         {% endif %}
-
       </header>
 
       <p class="intent-text">
@@ -144,7 +143,6 @@
           {{ 'check-pass' if s.check_a_merchant.success else 'check-fail' }}">
 
           <strong>1. Merchant</strong>
-
           <br>
 
           {{ "Accepted" if s.check_a_merchant.success else "Rejected" }}
@@ -156,7 +154,6 @@
              else 'check-fail' }}">
 
           <strong>2. Fraud detector</strong>
-
           <br>
 
           {{ s.check_b_classifier.risk_label }}
@@ -174,7 +171,6 @@
           {{ 'check-pass' if s.check_c_mandate.allowed else 'check-fail' }}">
 
           <strong>3. Spending rules</strong>
-
           <br>
 
           {% if s.check_c_mandate.allowed %}
@@ -190,13 +186,11 @@
       {% if s.refusal_record %}
 
       <details class="refusal-record">
-
         <summary>
           Why was this purchase refused?
         </summary>
 
         <ul>
-
           {% for v in s.refusal_record.mandate_binding_violations %}
 
           <li>
@@ -205,9 +199,7 @@
           </li>
 
           {% endfor %}
-
         </ul>
-
       </details>
 
       {% endif %}
@@ -221,7 +213,6 @@
   </div>
 
   {% endif %}
-
 </section>
 
 <section class="panel">

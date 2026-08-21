@@ -3,46 +3,79 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>{% block title %}Payment Fraud Defense Lab{% endblock %}: Mastercard Innovation Challenge</title>
+
+  <title>
+    {% block title %}Payment Fraud Defense Lab{% endblock %}
+    — Mastercard Innovation Challenge 2026
+  </title>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
   <link
-    rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500&family=Public+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap"
-  />
+    rel="stylesheet"
+  >
 
   <link rel="stylesheet" href="/static/style.css">
 </head>
 
 <body>
-  <header class="topbar">
-    <div class="topbar-inner">
-      <a class="brand" href="/">Payment Fraud Defense Lab</a>
 
-      <nav>
-        <a href="/cases">Test a Transaction</a>
-        <a href="/mandate-demo" class="nav-highlight">Spending Rules</a>
-        <a href="/dashboard">Results</a>
-        <a href="/taxonomy">Fraud Scenarios</a>
-      </nav>
-    </div>
-  </header>
+<header class="topbar">
 
-  <main class="content">
-    {% block content %}{% endblock %}
-  </main>
+  <div class="topbar-inner">
 
-  <footer class="footer">
-    <p>
-      Working prototype for the Mastercard Innovation Challenge 2026.
-      The results shown here come directly from the project's
-      <code>identify/</code>, <code>generate/</code>, <code>defend/</code>,
-      and <code>mandate-demo/</code> files.
-    </p>
-  </footer>
+    <a class="brand" href="/">
+      Payment Fraud Defense Lab
+    </a>
 
-  <script src="/static/app.js"></script>
+    <nav>
+
+      <a href="/cases">
+        Test a Transaction
+      </a>
+
+      <a href="/mandate-demo" class="nav-highlight">
+        Spending Rules
+      </a>
+
+      <a href="/dashboard">
+        Results
+      </a>
+
+      <a href="/taxonomy">
+        Fraud Scenarios
+      </a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+<main class="content">
+
+  {% block content %}
+  {% endblock %}
+
+</main>
+
+<footer class="footer">
+
+  <p>
+    Working prototype for the Mastercard Innovation Challenge 2026.
+  </p>
+
+  <p>
+    The system finds fraud scenarios, creates simulated payments,
+    tests the defence, and checks whether proposed payments follow
+    the customer's spending rules.
+  </p>
+
+</footer>
+
+<script src="/static/app.js"></script>
+
 </body>
 </html>
